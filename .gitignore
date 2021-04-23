@@ -7,6 +7,14 @@ bin-release/
 # Other files and folders
 .settings/
 
+#Files
+*.asv
+*.gif
+*.avi
+*.png
+*.jpg
+*.zip
+
 # Executables
 *.swf
 *.air
