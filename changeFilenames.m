@@ -22,15 +22,15 @@ for id = 1:length(files)
     [~, f,ext] = fileparts(files(id).name);
     
         if rawOri == 0 %raw
-            if exist(strcat(path, rename, '_', num2str(id), '_', 'raw', ext), 'file')== 0 %does not allready exist
-                movefile(strcat(path, files(id).name), strcat(path, rename, '_', num2str(id), '_', 'raw', ext), 'f');
+            if exist(strcat(path, rename, '_', num2str(id, '%05d'), '_', 'raw', ext), 'file')== 0 %does not allready exist
+                movefile(strcat(path, files(id).name), strcat(path, rename, '_', num2str(id, '%05d'), '_', 'raw', ext), 'f');
             else %already exists
                 disp(strcat(path, files(id).name, ' already exists'));
             end
                 
         else %annotations
-            if exist(strcat(path, rename, '_', num2str(id), '_', 'polygons', ext), 'file')== 0 %does not already exist
-                movefile(strcat(path, files(id).name), strcat(path, rename, '_', num2str(id), '_', 'polygons', ext), 'f');
+            if exist(strcat(path, rename, '_', num2str(id, '%05d'), '_', 'polygons', ext), 'file')== 0 %does not already exist
+                movefile(strcat(path, files(id).name), strcat(path, rename, '_', num2str(id, '%05d'), '_', 'polygons', ext), 'f');
             else %already exists
                 disp(strcat(path, files(id).name, ' already exists'));
             end
