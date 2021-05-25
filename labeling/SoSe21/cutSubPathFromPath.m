@@ -1,4 +1,4 @@
-function [subpath, filename] = cutSubPathFromPath(path)
+function [subpath, pixelLabelFolder, filename] = cutSubPathFromPath(path)
 %cutSubPathFromPath Summary of this function goes here
 %This function takes a path and parses it from behind to the authors name.
 %If the authors name is detected, the loop breaks and the subpath is
@@ -7,6 +7,7 @@ function [subpath, filename] = cutSubPathFromPath(path)
 splited_path=strsplit(path,'\');
 subpath='';
 filename = char(splited_path(length(splited_path)));
+pixelLabelFolder = strcat('\', char(splited_path(length(splited_path)-1)));
 for i=length(splited_path):-1:1
     if strcmp(char(splited_path(i)), 'Marcel') || strcmp(char(splited_path(i)), 'Senay') || strcmp(char(splited_path(i)), 'Yassine') || strcmp(char(splited_path(i)), 'Kai')
         break;
