@@ -3,8 +3,8 @@ function [newFilename] = addLeadingZerosToFilename(filename)
     
     firstSplit = strsplit(filename, '.');
     secondSplit = strsplit(char(firstSplit(1)), '_');
-    
-    newFilename = strcat(char(secondSplit(1)), '_', '00', char(secondSplit(2)), '.', char(firstSplit(2)));
+    index = str2num(char(secondSplit(2)));
+     
+    newFilename = strcat(char(secondSplit(1)), '_', num2str(index, '%05d'), '.', char(firstSplit(2)));
     
 end
-
