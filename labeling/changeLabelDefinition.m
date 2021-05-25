@@ -30,6 +30,7 @@ for i=1:length(gTruth.LabelData.PixelLabelData)
     
     [pixelLabelImg, filename] = cutSubPathFromPath(char(gTruth.LabelData.PixelLabelData(i)));
     validPixelLabelImg = iterateAndChangeLabelId(imread(pixelLabelImg), pixelLabelMappingList);
+    filename = addLeadingZerosToFilename(filename);
     imwrite(validPixelLabelImg,strcat(imageSpace, 'changedLabelID\', filename)); 
 
 end
