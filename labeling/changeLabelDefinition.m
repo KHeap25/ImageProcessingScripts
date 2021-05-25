@@ -5,6 +5,8 @@
 % The Ids in the Label_XX.png files are updated to the new definition.
 
 clear;
+profile off
+profile on -history
 
 gTruth=input('path to the "~/.../gTruth.mat" file from the labeling session: ', 's');
 disp(' ');
@@ -25,10 +27,12 @@ pixelLabelMappingList=importValidationPixelLabelMappingList('validationPixelLabe
 %valid labes
 for i=1:length(gTruth.LabelData.PixelLabelData)
     
-    pixelLabelImg = cutSubPathFromPath(gTruth.LabelData.PixelLabelData);
-    validPixelLabelImg = iterateAndChangeLabelId(pixelLabelImg, pixelLabelMappingList);
+    [pixelLabelImg, filename] = cutSubPathFromPath(char(gTruth.LabelData.PixelLabelData(i)));
+    validPixelLabelImg = iterateAndChangeLabelId(imread(pixelLabelImg), pixelLabelMappingList);
+    imwrite(validPixelLabelImg,strcat(imageSpace, 'changedLabelID\', filename)); 
 
 end
 
-
+p = profile('info');
+profile off;
 
