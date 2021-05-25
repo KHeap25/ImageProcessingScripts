@@ -1,0 +1,14 @@
+name, invalidPixelLabelID, validPixelLabelID
+ego vehicle, 8, 1
+left lane, 1, 2
+right lane, 3, 3
+dashed center line, 2, 4
+double solid center line, 4, 5
+solid dashed center line, 11, 6
+dashed solid center line, 12, 7
+starting line, 5, 8
+stop line, 6, 9
+yield line, 13, 10
+crosswalk, 7, 11
+free parking space, 9, 12
+free parking area, 10, 13
