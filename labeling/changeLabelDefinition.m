@@ -10,7 +10,7 @@ profile on -history
 
 gTruth=input('path to the "~/.../gTruth.mat" file from the labeling session: ', 's');
 disp(' ');
-imageSpace=input('path to the main folder, where the images are stored (z.B. ~/.../Senay/: ', 's');
+imageSpace=input('path to the main folder, where the images are stored (z.B. ~/.../Senay/): ', 's');
 addpath(genpath(imageSpace));
 
 %create new folder for the results
