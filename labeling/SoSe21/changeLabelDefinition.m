@@ -4,6 +4,7 @@
 % coresponding TrainIds in the new label definition. 
 % The Ids in the Label_XX.png files are updated to the new definition.
 
+%% read in path and files
 clear;
 profile off
 profile on -history
@@ -20,6 +21,7 @@ pixelLabelMappingList=importValidationPixelLabelMappingList('validationPixelLabe
 %get pixel label folder
 [~, pixelLabelFolder, ~] = cutSubPathFromPath(char(gTruth.LabelData.PixelLabelData(1)));
 
+%% create new location
 %create new folder for the results
 if exist(strcat(imageSpace, pixelLabelFolder, '\', 'changedLabelID'), 'dir') == 0
     mkdir(strcat(imageSpace, pixelLabelFolder, '\', 'changedLabelID'));
@@ -27,7 +29,7 @@ else
     disp('folder "changedLabelID" already exists ... ')
 end
 
-
+%% change invalid ID with valid ID
 %step trough all PixelLabel Images and change the invalid labels with the
 %valid labes
 for i=1:length(gTruth.DataSource.Source)
