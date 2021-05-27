@@ -14,7 +14,7 @@ addpath(genpath(imageSpace));
 load(gTruth);
 %% create new location
 %get pixel label folder
-[~, pixelLabelFolder, ~] = cutSubPathFromPath(char(gTruth.LabelData.PixelLabelData(1)));
+[~, pixelLabelFolder, ~] = cutSubPathFromPathV2(char(gTruth.LabelData.PixelLabelData(1)));
 
 %create new folder for the results
 if exist(strcat(imageSpace, pixelLabelFolder, '\', 'labelTrainIdImgs'), 'dir') == 0
@@ -28,9 +28,9 @@ end
 %corresponding filename.
 for i=1:length(gTruth.DataSource.Source)
     
-    [~, ~, filename] = cutSubPathFromPath(char(gTruth.DataSource.Source(i)));
+    [~, ~, filename] = cutSubPathFromPathV2(char(gTruth.DataSource.Source(i)));
     filename = cutExtension(filename);
-    [pixelLabelImg, ~, ~] = cutSubPathFromPath(char(gTruth.LabelData.PixelLabelData(i)));
+    [pixelLabelImg, ~, ~] = cutSubPathFromPathV2(char(gTruth.LabelData.PixelLabelData(i)));
     
     if exist(strcat(imageSpace, pixelLabelFolder, '\', 'labelTrainIdImgs\', filename, 'labelTrainIds.png'), 'file')== 0 %does not allready exist
         copyfile(strcat(imageSpace, '\',pixelLabelImg ), strcat(imageSpace, pixelLabelFolder, '\', 'labelTrainIdImgs\', filename, 'labelTrainIds.png'), 'f');
