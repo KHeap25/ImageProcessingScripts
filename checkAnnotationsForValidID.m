@@ -36,6 +36,9 @@ end
 
 if isInvalid == false
     fprintf(result, '%s\n', 'no invalid train IDs were detected');
+    disp('no invalid train IDs were detected');
+else
+    disp('Invalid train IDs were detected. See invalidAnnotationImages.txt');
 end
 
 fclose(result);
