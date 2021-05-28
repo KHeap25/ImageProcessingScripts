@@ -1,0 +1,44 @@
+%This script takes a folder with labelTrainIds pictures and checks if 
+%the train ID's are valid. (0 <= train ID <= 13)
+
+clear;
+profile off
+profile on -history
+
+% read in the path of the images and the format
+path=input('path of the folder (path/): ', 's');
+exten=input('file extension (.png): ', 's');
+exten=strcat('*', exten);
+
+% Get all files in the current folder.
+files = dir(strcat(path,exten));
+    
+% Open text file to store the results
+if exist(strcat(path, 'invalidAnnotationImages.txt'), 'file') ~= 0 %does allready exist
+    delete(strcat(path, 'invalidAnnotationImages.txt'));
+end
+result = fopen(strcat(path, 'invalidAnnotationImages.txt'), 'wt' );
+
+%check every image train ID that has to be <=13
+%Train ID's > 13 are invalid
+isInvalid = false;
+
+for id = 1:length(files)
+    img = imread(strcat(path, files(id).name));
+    [i,k]=find(img>13);
+    
+    if (isempty(i)== 0) || (isempty(k)==0)
+        %invalid ids are detected
+        isInvalid = true;
+        fprintf(result, '%s\n', files(id).name);
+    end
+end
+
+if isInvalid == false
+    fprintf(result, '%s\n', 'no invalid train IDs were detected');
+end
+
+fclose(result);
+
+p = profile('info');
+profile off;
