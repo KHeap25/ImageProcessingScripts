@@ -14,10 +14,10 @@ exten=strcat('*', exten);
 files = dir(strcat(path,exten));
     
 % Open text file to store the results
-if exist(strcat(path, 'invalidAnnotationImages.txt'), 'file') ~= 0 %does allready exist
-    delete(strcat(path, 'invalidAnnotationImages.txt'));
+if exist(strcat(path, 'checkInvalidAnnotationsResult.txt'), 'file') ~= 0 %does allready exist
+    delete(strcat(path, 'checkInvalidAnnotationsResult.txt'));
 end
-result = fopen(strcat(path, 'invalidAnnotationImages.txt'), 'wt' );
+result = fopen(strcat(path, 'checkInvalidAnnotationsResult.txt'), 'wt' );
 
 %check every image train ID that has to be <=13
 %Train ID's > 13 are invalid
@@ -38,7 +38,7 @@ if isInvalid == false
     fprintf(result, '%s\n', 'no invalid train IDs were detected');
     disp('no invalid train IDs were detected');
 else
-    disp('Invalid train IDs were detected. See invalidAnnotationImages.txt');
+    disp('Invalid train IDs were detected. See checkInvalidAnnotationsResult.txt');
 end
 
 fclose(result);
