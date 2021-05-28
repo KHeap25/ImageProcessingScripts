@@ -27,7 +27,8 @@ for id = 1:length(files)
     diff = mod(height, 64);
     new_height = height - diff;
     scale = (new_height / height);  
-    resized_img = imresize(img,scale);
+%     interpolation method: 'nearest' or 'bilinear' to stay in range
+    resized_img = imresize(img,scale, 'bilinear');
     
     [height,width,channel] = size(resized_img);    
     diff = mod(width, 64);
