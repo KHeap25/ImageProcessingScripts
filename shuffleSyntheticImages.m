@@ -18,6 +18,11 @@ filesAnnotated = dir(strcat(path, 'annotations\',exten));
 %% quit if number is not equal
 if length(filesOriginal) ~= length(filesAnnotated)
     disp('number of original images and annotations is not equal!');
+    profile off;
+    return;
+elseif (length(filesOriginal) == 0) || (length(filesAnnotated) == 0)
+    disp('no original images or annotations in selected folder!');
+    profile off;
     return;
 end
 
@@ -33,20 +38,65 @@ fileIndexes = fileIndexes(randperm(numFiles));
 numTrain = cast(0.75 * length(filesOriginal), 'uint16');
 numVal = numFiles - numTrain;
 
+disp(strcat('number of train images: ', num2str(numTrain)));
+disp(strcat('number of val images: ', num2str(numVal)));
 %create new sub directories for train and val
-mkdir(strcat(path, 'original_images\', 'train'));
-mkdir(strcat(path, 'original_images\', 'val'));
-mkdir(strcat(path, 'annotations\', 'train'));
-mkdir(strcat(path, 'annotations\', 'val'));
 
-% mov the images in the train or val folder depending on the shuffled
-% Indexes
-for id = 1:numFiles
-    %TODO
-
-
+if exist(strcat(path, 'original_images\', 'train'), 'dir')== 0 %does not allready exist
+    mkdir(strcat(path, 'original_images\', 'train'));
+end
+if exist(strcat(path, 'original_images\', 'val'), 'dir')== 0 %does not allready exist
+    mkdir(strcat(path, 'original_images\', 'val'));
+end
+if exist(strcat(path, 'annotations\', 'train'), 'dir')== 0 %does not allready exist
+    mkdir(strcat(path, 'annotations\', 'train'));
+end
+if exist(strcat(path, 'annotations\', 'val'), 'dir')== 0 %does not allready exist
+    mkdir(strcat(path, 'annotations\', 'val'));
 end
 
+% move the images in the train or val folder depending on the shuffled
+% Indexes
+for id = 1:numFiles
+    
+    if id <= numTrain 
+      %train images
+        %original images
+        if exist(strcat(path, 'original_images\', 'train\', filesOriginal(fileIndexes(id)).name), 'file')== 0 
+            %does not allready exist    
+            movefile(strcat(path, 'original_images\', filesOriginal(fileIndexes(id)).name), strcat(path, 'original_images\', 'train\', filesOriginal(fileIndexes(id)).name) , 'f');
+        else
+            %already exists
+            disp(strcat(path, 'original_images\', 'train\', filesOriginal(fileIndexes(id)).name, ' already exists'));
+        end
+        %annotations 
+        if exist(strcat(path, 'annotations\', 'train\', filesAnnotated(fileIndexes(id)).name), 'file')== 0 
+            %does not allready exist    
+            movefile(strcat(path, 'annotations\', filesAnnotated(fileIndexes(id)).name), strcat(path, 'annotations\', 'train\', filesAnnotated(fileIndexes(id)).name) , 'f');
+        else
+            %already exists
+            disp(strcat(path, 'annotations\', 'train\', filesAnnotated(fileIndexes(id)).name, ' already exists'));
+        end  
+    else
+      %val images
+        %original images
+        if exist(strcat(path, 'original_images\', 'val\', filesOriginal(fileIndexes(id)).name), 'file')== 0 
+            %does not allready exist    
+            movefile(strcat(path, 'original_images\', filesOriginal(fileIndexes(id)).name), strcat(path, 'original_images\', 'val\', filesOriginal(fileIndexes(id)).name) , 'f');
+        else
+            %already exists
+            disp(strcat(path, 'original_images\', 'val\', filesOriginal(fileIndexes(id)).name, ' already exists'));
+        end
+        %annotations 
+        if exist(strcat(path, 'annotations\', 'val\', filesAnnotated(fileIndexes(id)).name), 'file')== 0
+            %does not allready exist    
+            movefile(strcat(path, 'annotations\', filesAnnotated(fileIndexes(id)).name), strcat(path, 'annotations\', 'val\', filesAnnotated(fileIndexes(id)).name) , 'f');
+        else
+            %already exists
+            disp(strcat(path, 'annotations\', 'val\', filesAnnotated(fileIndexes(id)).name, ' already exists'));
+        end          
+    end
+end
 
 p = profile('info');
 profile off;
