@@ -32,6 +32,7 @@ fileIndexes = 1:1:numFiles;
 fileIndexes = cast(fileIndexes, 'uint16');
 
 %shuffle Indexes wit random permutation
+rng(0,'v5uniform'); %adjust rng to get always the same permutation
 fileIndexes = fileIndexes(randperm(numFiles));
 
 %get numbers for train and val
