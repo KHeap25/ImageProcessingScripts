@@ -1,5 +1,5 @@
 clear;
-clear all force;
+close all force;
 
 src_raw_path = input('Enter the absolute path of the folder with raw images: \n', 's');
 if ~exist(src_raw_path, 'dir')
@@ -13,7 +13,10 @@ if ~exist(src_id_path, 'dir')
 end
 img_trainId_list = dir(fullfile(src_id_path, '*.png'));
 
-labelDefinitions = readtable('labelDefinitions.csv', 'Delimiter', ',');
+label_def_path = input('Enter the absolute path of the folder within the label definitions: \n', 's');
+labelDefinitions = readtable(strcat(label_def_path, '\labelDefinitions.csv'), 'Delimiter', ',');
+
+
 trainId  = table2array(labelDefinitions(:,3));
 R = table2array(labelDefinitions(:,8));
 G = table2array(labelDefinitions(:,9));
@@ -73,4 +76,4 @@ for i=1:length(frames)
 end
 
 close(writerObject);
-clear all force;
+close all force;
