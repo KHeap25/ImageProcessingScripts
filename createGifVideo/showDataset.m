@@ -22,7 +22,7 @@ R = table2array(labelDefinitions(:,8));
 G = table2array(labelDefinitions(:,9));
 B = table2array(labelDefinitions(:,10));
 
-writerObject = VideoWriter("evaluationVideo.avi");
+writerObject = VideoWriter("ego_part_2_evaluationVideo.avi");
 writerObject.FrameRate = 20;
 open(writerObject);
 
@@ -33,12 +33,12 @@ tiledlayout(2,2, 'Padding', 'none', 'TileSpacing', 'compact');
 % adapt the parfor loop head and use a additional counter variable 
 % to store the frames. (see line 65: frames{i} = frame; i = i+1;) 
 
-% frames=cell(100);
-frames=cell(length(img_raw_list));
+% frames=cell(200);
+frames=cell(length(img_raw_list), 1);
 
 
 parfor d = 1:length(img_raw_list)
-	image_path = strcat(img_raw_list(d).folder, '\', img_raw_list(d).name);
+    image_path = strcat(img_raw_list(d).folder, '\', img_raw_list(d).name);
     img_raw = imread(image_path);  
     [height,width,channel] = size(img_raw);
     
@@ -67,7 +67,7 @@ parfor d = 1:length(img_raw_list)
     set(ha(3),'position',[.05 .5 .5 .4]);
     set(ha(2),'position',[.45 .5 .5 .4]);
     frame = getframe(h);
-    frames{d} = frame; 
+    frames{d} = frame;
 end
 
 
