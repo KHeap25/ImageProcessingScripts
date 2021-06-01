@@ -3,8 +3,6 @@
 %moves it in the train subfolder and 25% in the val subfolder.
 
 clear;
-profile off
-profile on -history
 
 %% read in the path of the images and the format
 path=input('path of the folder which contains the synthetic images (path/): ', 's');
@@ -98,6 +96,3 @@ for id = 1:numFiles
         end          
     end
 end
-
-p = profile('info');
-profile off;
