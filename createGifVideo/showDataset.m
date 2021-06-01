@@ -23,23 +23,23 @@ R = table2array(labelDefinitions(:,8));
 G = table2array(labelDefinitions(:,9));
 B = table2array(labelDefinitions(:,10));
 
-writerObject = VideoWriter("test_ego_evaluationVideo.avi");
+writerObject = VideoWriter("ego_part_2_evaluationVideo.avi");
 writerObject.FrameRate = 20;
 open(writerObject);
 
 h = figure;
 tiledlayout(2,2, 'Padding', 'none', 'TileSpacing', 'compact');
 
-% if you want to use a range e.g. from 10.000 to 20.000
-% adapt the parfor loop head and use a additional counter variable 
-% to store the frames. (see line 65: frames{i} = frame; i = i+1;) 
-% I am not sure if this works with parfor.
+% if you want to use a range e.g. from 2.000 to 4.000
+% adapt the parfor loop head with the range and add the right negative 
+% offset to store the frames. (see line 65: frames{d-offset} = frame;) 
 
-% frames=cell(200, 1);
-frames=cell(length(img_raw_list), 1);
+frames=cell(2000, 1);
+% frames=cell(length(img_raw_list), 1);
 
+tic;
 %% create frames
-parfor d = 1:length(img_raw_list)
+parfor d = 2001:4000%length(img_raw_list) 
     image_path = strcat(img_raw_list(d).folder, '\', img_raw_list(d).name);
     img_raw = imread(image_path);  
     [height,width,channel] = size(img_raw);
@@ -69,13 +69,14 @@ parfor d = 1:length(img_raw_list)
     set(ha(3),'position',[.05 .5 .5 .4]);
     set(ha(2),'position',[.45 .5 .5 .4]);
     frame = getframe(h);
-    frames{d} = frame;
+    frames{d-2000} = frame;
 end
 
 %% write frames in video
 for i=1:length(frames)
     writeVideo(writerObject, frames{i});
 end
+toc;
 
 close(writerObject);
 close all force;
