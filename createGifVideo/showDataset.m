@@ -1,6 +1,7 @@
 clear;
 close all force;
 
+%% read in paths and files
 src_raw_path = input('Enter the absolute path of the folder with raw images: \n', 's');
 if ~exist(src_raw_path, 'dir')
      return;
@@ -16,13 +17,13 @@ img_trainId_list = dir(fullfile(src_id_path, '*.png'));
 label_def_path = input('Enter the absolute path of the folder within the label definitions: \n', 's');
 labelDefinitions = readtable(strcat(label_def_path, '\labelDefinitions.csv'), 'Delimiter', ',');
 
-
+%% init variables
 trainId  = table2array(labelDefinitions(:,3));
 R = table2array(labelDefinitions(:,8));
 G = table2array(labelDefinitions(:,9));
 B = table2array(labelDefinitions(:,10));
 
-writerObject = VideoWriter("ego_part_2_evaluationVideo.avi");
+writerObject = VideoWriter("test_ego_evaluationVideo.avi");
 writerObject.FrameRate = 20;
 open(writerObject);
 
@@ -32,11 +33,12 @@ tiledlayout(2,2, 'Padding', 'none', 'TileSpacing', 'compact');
 % if you want to use a range e.g. from 10.000 to 20.000
 % adapt the parfor loop head and use a additional counter variable 
 % to store the frames. (see line 65: frames{i} = frame; i = i+1;) 
+% I am not sure if this works with parfor.
 
-% frames=cell(200);
+% frames=cell(200, 1);
 frames=cell(length(img_raw_list), 1);
 
-
+%% create frames
 parfor d = 1:length(img_raw_list)
     image_path = strcat(img_raw_list(d).folder, '\', img_raw_list(d).name);
     img_raw = imread(image_path);  
@@ -70,7 +72,7 @@ parfor d = 1:length(img_raw_list)
     frames{d} = frame;
 end
 
-
+%% write frames in video
 for i=1:length(frames)
     writeVideo(writerObject, frames{i});
 end
