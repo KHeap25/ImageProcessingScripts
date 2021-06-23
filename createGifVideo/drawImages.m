@@ -8,6 +8,21 @@ function drawImages(varargin)
 %varargin{4}: delayTime
 %varargin{5}: mode
 %varargin{6}: fileListSecondColored
+%varargin{7}: stepsize
+
+destHeight = 0;
+destWidth = 0;
+
+% search highest heigth and widest width of the images
+for i = 1:length(varargin{2})
+    info = imfinfo([varargin{2}(i).folder '\' varargin{2}(i).name]);
+    if info.Height > destHeight
+        destHeight = info.Height;
+    end
+    if info.Width > destWidth
+        destWidth = info.Width;
+    end
+end
 
 h = figure;
 set(h, 'color', 'k');
@@ -105,9 +120,17 @@ elseif varargin{5} == 5 % Raw | Collored overlaying Colored
         end
     end
 elseif varargin{5} == 6 %concatenate imgs to gif
-    for i = 1:length(varargin{2})
-        imgRaw = imread([varargin{2}(i).folder '\' varargin{2}(i).name]);
+    for i = 1:varargin{7}:length(varargin{2})
         
+        imgRaw = zeros(destHeight, destWidth, 3, 'uint8');
+        imgTmp = imread([varargin{2}(i).folder '\' varargin{2}(i).name]);
+        [height,width,~] = size(imgTmp);  
+        r1 = (destHeight / 2) - (height / 2);
+        r2 = (destHeight / 2) + (height / 2);
+        c1 = (destWidth / 2) - (width / 2);
+        c2 = (destWidth / 2) + (width / 2);
+        imgRaw(r1 + 1:r2, c1 + 1:c2, :) = imgTmp;
+
         imshow(imgRaw);
         drawnow;
 

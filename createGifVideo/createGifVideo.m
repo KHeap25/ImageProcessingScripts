@@ -6,8 +6,6 @@
 %in the follwing dialog field.%TODO 
 
 clear;
-profile off
-profile on -history
 
 disp('This script creates a gif or video with the predicted pictures of a semantic segmentation model.');
 disp('You can choose from the following modes:');
@@ -34,6 +32,7 @@ if gif_video == 0 % Params for gif
     disp('Set the file name');
     disp('example: ~\Versuch1_and_2_route_101_250ms.gif');
     filename=input('filename: ', 's');
+    stepsize=input('stepsize: ');
 else %params for video
     disp(' ');
     frameRate=input('Set the frame rate [FPS]: ');
@@ -150,7 +149,7 @@ elseif mode == 6
     fileListRaw = dir(filePathRaw);
     
     if gif_video == 0
-        drawImages(filename, fileListRaw, 'NaN', delayTime, 6);
+        drawImages(filename, fileListRaw, 'NaN', delayTime, 6, 'NaN', stepsize);
     else
         createVideo(filename, fileListRaw, 'NaN', frameRate, 6);
     end
@@ -182,5 +181,3 @@ else
     disp('No valid mode!');
 end
 
-p = profile('info');
-profile off;
