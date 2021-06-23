@@ -16,6 +16,7 @@ bin-release/
 *.zip
 *.txt
 
+
 # Executables
 *.swf
 *.air
