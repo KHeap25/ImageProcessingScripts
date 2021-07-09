@@ -1,8 +1,6 @@
 %This script takes a folder with pictures and checks if 
 %width mod 64 = 0 and hight mod 64 = 0.
 clear;
-profile off
-profile on -history
 
 % read in the path of the images and the format
 path=input('path of the folder (path/): ', 's');
@@ -47,6 +45,3 @@ else
 end
 
 fclose(result);
-
-p = profile('info');
-profile off;

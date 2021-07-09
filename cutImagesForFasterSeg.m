@@ -3,8 +3,6 @@
 %0 and hight mod 64 = 0
 
 clear;
-profile off
-profile on -history
 
 % read in the path of the images and the format
 path=input('path of the folder: ', 's');
@@ -44,8 +42,4 @@ for id = 1:length(files)
     end
      
     imwrite(img, strcat(resized_path, '\', files(id).name));
-end    
-
-p = profile('info');
-profile off;
-    
+end 
