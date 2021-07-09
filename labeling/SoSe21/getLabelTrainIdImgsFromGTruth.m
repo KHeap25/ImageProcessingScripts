@@ -4,8 +4,6 @@
 
 %% read in path and files
 clear;
-profile off
-profile on -history
 
 gTruth=input('path to the "~/.../gTruth.mat" file from the labeling session: ', 's');
 disp(' ');
@@ -39,6 +37,3 @@ for i=1:length(gTruth.DataSource.Source)
     end
     
 end
-
-p = profile('info');
-profile off;
